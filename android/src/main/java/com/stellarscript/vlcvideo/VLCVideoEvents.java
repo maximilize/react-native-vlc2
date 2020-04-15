@@ -2,7 +2,7 @@ package com.stellarscript.vlcvideo;
 
 final class VLCVideoEvents {
 
-    private static final String EVENT_NAME_PREFIX = VLCVideoView.class.getSimpleName();
+    private static final String EVENT_NAME_PREFIX = "VLCVideoView";
 
     static final String ON_BUFFERING_EVENT = getFullEventName("onBuffering");
     static final String ON_PLAYING_EVENT = getFullEventName("onPlaying");
