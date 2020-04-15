@@ -12,6 +12,7 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 
 import org.videolan.libvlc.LibVLC;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 final class VLCVideoViewManager extends SimpleViewManager<VLCVideoView> {
@@ -150,7 +151,19 @@ final class VLCVideoViewManager extends SimpleViewManager<VLCVideoView> {
             title = VLCVideoProps.MEDIA_TITLE_DEFAULT_VALUE;
         }
 
-        videoView.loadMedia(sourceUrl, startTime, autoplay, hwDecoderEnabled, title);
+        final String[] options;
+        if (media.hasKey(VLCVideoProps.OPTIONS_PROP) &&
+                !media.isNull(VLCVideoProps.OPTIONS_PROP) &&
+                media.getType(VLCVideoProps.OPTIONS_PROP) == ReadableType.Array) {
+            ReadableArray arr = media.getArray(VLCVideoProps.OPTIONS_PROP);
+            ArrayList<String> list = new ArrayList();
+            for (int i = 0; i < arr.size(); i++) list.add(arr.getString(i));
+            options = list.toArray(new String[list.size()]);
+        } else {
+            options = VLCVideoProps.OPTIONS_DEFAULT_VALUE;
+        }
+
+        videoView.loadMedia(sourceUrl, startTime, autoplay, hwDecoderEnabled, title, options);
     }
 
     @ReactProp(name = VLCVideoProps.KEY_CONTROL_ENABLED_PROP, defaultBoolean = VLCVideoProps.KEY_CONTROL_ENABLED_DEFAULT_VALUE)

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.KeyEvent;
@@ -228,7 +228,7 @@ public final class VLCVideoView extends SurfaceView {
         mPlayInBackground = playInBackground;
     }
 
-    public void loadMedia(final String sourceUrl, final long startTime, final boolean autoplay, final boolean hwDecoderEnabled, final String title) {
+    public void loadMedia(final String sourceUrl, final long startTime, final boolean autoplay, final boolean hwDecoderEnabled, final String title, final String[] options) {
         if (sourceUrl == null || sourceUrl.isEmpty()) {
             return;
         }
@@ -250,6 +250,12 @@ public final class VLCVideoView extends SurfaceView {
             final long startTimeInSeconds = startTime / 1000;
             final String startTimeOption = MessageFormat.format(":start-time={0}", String.valueOf(startTimeInSeconds));
             newMedia.addOption(startTimeOption);
+        }
+
+        if (options != null) {
+            for (int i = 0; i < options.length; i++) {
+                newMedia.addOption(options[i]);
+            }
         }
 
         mTitle = title;
