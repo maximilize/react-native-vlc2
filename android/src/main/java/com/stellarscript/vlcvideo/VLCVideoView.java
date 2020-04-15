@@ -141,24 +141,28 @@ public final class VLCVideoView extends SurfaceView {
                     mEventEmitter.emitOnPaused();
                     VLCVideoView.this.updatePlaybackNotification();
                     break;
-                case MediaPlayer.Event.TimeChanged:
+                case MediaPlayer.Event.TimeChanged: {
                     final double time = mMediaPlayer.getTime();
-                    mEventEmitter.emitOnTimeChanged(time);
+                    final double duration = mMediaPlayer.getLength();
+                    mEventEmitter.emitOnTimeChanged(time, duration);
                     if (mIsSeekRequested) {
                         mIsSeekRequested = false;
                         mEventEmitter.emitOnSeekPerformed();
                     }
                     break;
-                case MediaPlayer.Event.Playing:
+                }
+                case MediaPlayer.Event.Playing: {
                     final double duration = mMediaPlayer.getLength();
                     mEventEmitter.emitOnPlaying(duration);
                     mMediaPlayer.setSpuTrack(-1);
                     VLCVideoView.this.updatePlaybackNotification();
                     break;
-                case MediaPlayer.Event.Buffering:
+                }
+                case MediaPlayer.Event.Buffering: {
                     final double buffering = mediaEvent.getBuffering();
                     mEventEmitter.emitOnBuffering(buffering);
                     break;
+                }
             }
         }
 
