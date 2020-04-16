@@ -12,8 +12,15 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://dl.bintray.com/videolan/Android"
+    }
+}
+
 dependencies {
     implementation "com.facebook.react:react-native:+" // from node_modules
     // implementation "com.github.stremio:vlc-android-sdk:4.0.3"
-    implementation 'com.yyl.vlc:vlc-android-sdk:3.1.7'
+    // implementation 'com.yyl.vlc:vlc-android-sdk:3.1.7'
+    implementation 'org.videolan.android:libvlc-all:3.2.6'
 }

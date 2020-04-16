@@ -17,7 +17,7 @@ import java.util.List;
 
 public final class VLCVideoPackage implements ReactPackage {
 
-    private static final ArrayList<String> DEFAULT_VLC_OPTIONS = new ArrayList<>(Arrays.asList("-vvv", "--http-reconnect"));
+    private static final ArrayList<String> DEFAULT_VLC_OPTIONS = new ArrayList<>(Arrays.asList("-vvv", "--http-reconnect", "--http-caching=5000"));
 
     private View.OnKeyListener mOnKeyListener;
     private LibVLC mLibVLC;
